@@ -1,7 +1,7 @@
 import telebot
 from telebot import types
 
-bot = telebot.TeleBot("YOUR TOKEN")
+bot = telebot.TeleBot("7596207695:AAEAu1v793a25x18ZpQzWNzRkQxhgD3ztXY")
 
 names_button = ["Обработать твои привычки", "Рассчитать углеродный след", "Предоставить советы"]
 
@@ -21,5 +21,14 @@ def func_keyboard(message):
         markup.add(name_button)
 
     bot.send_message(message.chat.id, "Что я умею: ", reply_markup=markup)
+
+@bot.message_handler(content_types=['text'])
+def processing_button(message):
+    if message.text == "Обработать твои привычки":
+        pass
+    elif message.text == "Рассчитать углеродный след":
+        pass
+    elif message.text == "Предоставить советы":
+        pass
     
 bot.polling()
