@@ -9,8 +9,10 @@
 1) Начать общение с ботом:                                                                                                 
 ![изображение](https://github.com/user-attachments/assets/39b54fe3-e6ca-4b16-bf8b-36e2d162a692)
 
-3) Выбрать с помощью отправленной клавиатуры ботом функцию, которой хочешь воспользоваться:
-![изображение](https://github.com/user-attachments/assets/02d40bdb-bda5-4db7-83ef-b1bdbee879ee)
+3) Нажать на кнопочку:
+![изображение](https://github.com/user-attachments/assets/dbf051c3-445f-4582-b8ea-5cb76199c22e)
 
+4) Просто восхищаться тем, что бот помогает вам бороться с вашими выбросами углекислого газа: 
+![изображение](https://github.com/user-attachments/assets/e229f619-81b6-4238-9e64-0f1907ccce41)
 
 
