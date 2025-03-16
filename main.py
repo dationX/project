@@ -3,7 +3,7 @@ from telebot import types
 
 bot = telebot.TeleBot("7596207695:AAEAu1v793a25x18ZpQzWNzRkQxhgD3ztXY")
 
-names_button = ["Обработать твои привычки", "Рассчитать углеродный след", "Предоставить советы"]
+names_button = ["Обработать твои привычки и рассчитать углеродный след", "Предоставить советы"]
 habits = {"Использование автомобилей": 4.6, "Расжигание костров": 2, "Потребление мяса": 7.2,
           "Использование угля для отопления": 3.5, "Высокий уровенеь потребления энергии": 2,
           "Неэффективное использование воды": 0.4, "Отказ от переработки (мусора, например)": 1,
@@ -38,7 +38,7 @@ def func_keyboard(message):
 
 @bot.message_handler(content_types=['text'])
 def processing_button(message):
-    if message.text == "Обработать твои привычки":
+    if message.text == "Обработать твои привычки и рассчитать углеродный след":
         message_habits = ""
         count = 0
 
@@ -47,9 +47,43 @@ def processing_button(message):
             message_habits += f"{count}) {habit}\n"
         
         bot.send_message(message.chat.id, message_habits)
-    elif message.text == "Рассчитать углеродный след":
-        pass
+        bot.send_message(message.chat.id,
+"""
+Напишите номера ваших привычек из этого списка через запятую, пример: 1,6,9,15
+"""
+)
+        bot.register_next_step_handler(message, save_habits)
     elif message.text == "Предоставить советы":
         pass
+        
     
+def save_habits(message):
+    try:
+
+        chat_id = message.chat.id
+        text_user = message.text
+        habits_user = text_user.split(",")
+
+        co2_user = 0
+
+        for habit in habits_user:
+            co2_user += habits[list(habits.keys())[int(habit)-1]]
+
+        bot.send_message(chat_id, f"Вы выбрасывате в год примерно {co2_user} тонн углекислого газа в год")
+
+        if co2_user <= 2:
+            dop_message = "Отлично"
+        elif co2_user >= 2 and co2_user <= 5:
+            dop_message = "Хорошо"
+        elif co2_user >= 5 and co2_user <= 10:
+            dop_message = "Следует задуматься!"
+        elif co2_user >= 10 and co2_user <= 15:
+            dop_message = "Пора принимать меры!"
+        elif co2_user >= 15:
+            dop_message = "Критическая ситуация"
+
+        bot.send_message(chat_id, f"Оценка вашего результата: {dop_message}")
+    except:
+        pass
+
 bot.polling()
