@@ -1,8 +1,10 @@
 import telebot
 from telebot import types
 
+# Создание бота
 bot = telebot.TeleBot("TOKEN")
 
+#Переменные
 names_button = ["Обработать твои привычки и рассчитать углеродный след, получить советы"]
 habits = {"Использование автомобилей": 4.6, "Расжигание костров": 2, "Потребление мяса": 7.2,
           "Использование угля для отопления": 3.5, "Высокий уровенеь потребления энергии": 2,
@@ -19,6 +21,7 @@ habits = {"Использование автомобилей": 4.6, "Расжи�
           "Частая замена одежды": 4, "Покупка экзотических фруктов и овощей": 0.6, "Увлечение курением": 1.5,
           "Увлечение фаст-фудом": 7.5}
 
+#Команда /start, начало работы с ботом
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message,
@@ -27,6 +30,7 @@ def send_welcome(message):
 Если ты хочешь узнать, что я умею, то пропиши: /button.
 """)
 
+#Команда /button, узнать, что умеет бот
 @bot.message_handler(commands="button")
 def func_keyboard(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -36,6 +40,7 @@ def func_keyboard(message):
 
     bot.send_message(message.chat.id, "Что я умею: ", reply_markup=markup)
 
+#Обработка нажатия на кнопку
 @bot.message_handler(content_types=['text'])
 def processing_button(message):
     if message.text == "Обработать твои привычки и рассчитать углеродный след, получить советы":
@@ -55,8 +60,8 @@ def processing_button(message):
         bot.register_next_step_handler(message, save_habits)
     
 def save_habits(message):
+    """Обработка привычек пользователя"""
     try:
-
         chat_id = message.chat.id
         text_user = message.text
         habits_user = text_user.split(",")
